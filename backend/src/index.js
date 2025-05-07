@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config(); // process.env.MONGO_URI를 작동시키기 위함
 
-app.use(cors());
+app.use(cors()); 
 app.use(express.json()); // 미들웨어 등록
 
 mongoose.connect(process.env.MONGO_URI)
