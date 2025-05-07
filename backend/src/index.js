@@ -12,19 +12,26 @@ app.use(express.json()); // 미들웨어 등록
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
-        console.log('연결 완료')
+        console.log('연결 완료') // 연결 완료시
     })
     .catch(err => {
-        console.log(err);
+        console.log(err); // 오류 발생
     })
 
-app.get('/', (req,res) => {
-    res.send('안녕하세요.1111');
+app.get('/', (req, res, next) => {
+    setImmediate(() => { next (new Error('woops'));}); // throw를 통해서 보내면 서버 다운이 되고, next를 이용해서 강제로 보내야 된다
+    // throw new Error('it is an error');
+    // res.send('안녕하세요.1111');
 });
 
 app.post('/',(req,res) => {
     console.log(req.body);
     res.json(req.body);
+})
+
+app.use((error, req, res, next) => {
+    res.status(err.status || 500);
+    res.send(error.message || '서버에서 에러가 발생하였습니다.');
 })
 
 app.use(express.static(path.join(__dirname,'../uploads')));
