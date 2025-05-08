@@ -29,6 +29,9 @@ app.post('/',(req,res) => {
     res.json(req.body);
 })
 
+// 회원에 관한건 여기에서 처리
+app.use('/users', require('./routes/users')); 
+
 app.use((error, req, res, next) => {
     res.status(err.status || 500);
     res.send(error.message || '서버에서 에러가 발생하였습니다.');
@@ -37,7 +40,6 @@ app.use((error, req, res, next) => {
 app.use(express.static(path.join(__dirname,'../uploads')));
 // 어디서나 접근할 수 있도록 절대 경로로 지정해주기기
 // 경로 console 찍어서 확인 해보기
-
 
 app.listen(port, () => {
     console.log(`${port}번에서 실행이 되었습니다.`)

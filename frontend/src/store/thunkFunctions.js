@@ -7,7 +7,6 @@ export const registerUser = createAsyncThunk(
         try {
           const response = await axiosInstance.post(`/users/register`,body)
           return response.data;
-
         } catch (err) {
             console.log(err);
             return thunkAPI.rejectWithValue(err.response.data || err.message);
