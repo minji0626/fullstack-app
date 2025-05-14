@@ -60,7 +60,6 @@ const userSlice = createSlice({
             state.isLoading = false;
             state.userData = action.payload;
             state.isAuth = true;
-            toast.info('토큰 인증 완료');
         })
         .addCase(authUser.rejected, (state, action) => {
             state.isLoading = false;
