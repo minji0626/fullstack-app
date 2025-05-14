@@ -34,6 +34,14 @@ userSchema.pre('save', async function(next){
     next();
 })
 
+// 비밀번호 체크
+                                                    // 기존의 비밀번호호
+userSchema.methods.comparePassword = async function (plainPassword) {
+    let user = this;                    // 비밀번호 비교
+    const match = await bcrypt.compare(plainPassword, user.password);
+    return match;
+}
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

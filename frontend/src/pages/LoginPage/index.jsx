@@ -5,8 +5,9 @@ import { loginUser } from '../../store/thunkFunctions';
 
 const LoginPage = () => {
 
+  // register는 react-hook-form의 문법
 const {
-    login,
+    register,
     handleSubmit,
     formState: {errors},
     reset
@@ -41,7 +42,7 @@ const {
     <section className='flex flex-col justify-center mt-20 max-w-[400px] m-auto font-[Noto Sans KR]'>
       <div className='p-6 bg-white rounded-me shadow-md'>
         <h1 className='text-2xl font-semibold text-center'>
-          회원가입
+          로그인
         </h1>
         <form className='mt-6' onSubmit={handleSubmit(onSubmit)}>
           <div className='mb-2'>
@@ -49,7 +50,7 @@ const {
               Email
             </label>
             <input type="email" id="email" className='w-full px-4 py-2 mt-2 bg-white border border-gray-300 rounded-md cursor-pointer' 
-            {...login("email", userEmail)} />
+            {...register("email", userEmail)} />
             {errors?.email &&
               <div>
                 <span className='text-red-500 text-sm'>
@@ -65,7 +66,7 @@ const {
               Password
             </label>
             <input type="password" id="password" className='w-full px-4 py-2 mt-2 bg-white border border-gray-300  rounded-md cursor-pointer' 
-            {...login("password", userPassword)}/>
+            {...register("password", userPassword)}/>
             {errors?.password &&
               <div>
                 <span className='text-red-500 text-sm'>
@@ -77,15 +78,15 @@ const {
 
           <div className='mt-6'>
             <button type="submit" className='w-full bg-black text-white px-4 py-2 rounded-md hover:bg-gray-700 cursor-pointer duration-200'>
-              로그인인
+              로그인
             </button>
           </div>
         </form>
 
         <p className='mt-8 text-xs font-light text-center text-gray-700'>
-          {" "}아이디가 없다면면?{" "}
+          {" "}아이디가 없다면?{" "}
           <a href='/register' className='font-medium hover:underline'>
-            로그인
+            회원가입
           </a>
         </p>
 

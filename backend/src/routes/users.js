@@ -1,7 +1,7 @@
 const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
-
+const jwt = require('jsonwebtoken');
 
 // 회원가입 관련 처리
 router.post('/register', async(req, res, next) => {
@@ -16,8 +16,32 @@ router.post('/register', async(req, res, next) => {
 })
 
 // 로그인 관련 처리
-router.post('/login',(req,res) => {
+router.post('/login', async(req,res,next) => {
+    try {
+        // 회원가입된 유저인지 확인
+        // findOne 메소드를 사용해서 해당 유저가 있는지 데이터에서 찾는거
+        const user = await User.findOne({ email: req.body.email });
+        if(!user){
+            return res.status(400).send("Auth failed, email not found");
+        }
+
+        // 비밀번호 체크 
+        const isMatch = await user.comparePassword(req.body.password);
+        if(!isMatch){
+            return res.status(400).send("Wrong Password");
+        }
+
+        const payload = {
+            userId: user._id.toHexString(),
+        }
+
+        // 토큰 생성 후에 유저와 토큰 데이터 응답으로 보내주기
+        const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h'});
+        return res.json({ user, accessToken });
     
+    } catch (error) {
+        next(error);
+    }
 })
 
 

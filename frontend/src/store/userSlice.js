@@ -44,6 +44,7 @@ const userSlice = createSlice({
             state.userData = action.payload;
             state.isAuth = true;
             localStorage.setItem('accessToken', action.payload.accessToken);
+            toast.info('로그인되었습니다.');
         })
 
         .addCase(loginUser.rejected, (state, action) => {
