@@ -4,9 +4,12 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import NavBar from './layout/NavBar'
 import Footer from './layout/Footer'
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { authUser } from './store/thunkFunctions'
 
 function Layout(){
   return(
@@ -23,6 +26,17 @@ function Layout(){
 }
 
 function App() {
+  const dispatch = useDispatch();     // 로그인한 유저의 isAuth를 가져오기 
+  const isAuth = useSelector(state => state.user?.isAuth);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // isAuth가 true일 때만 
+    if(isAuth){
+      dispatch(authUser());
+    }
+  }, [dispatch, pathname, isAuth])
+
   return (
     <Routes>
         <Route path='/' element={<Layout />}>
