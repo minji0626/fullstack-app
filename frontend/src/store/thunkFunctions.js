@@ -8,9 +8,9 @@ export const registerUser = createAsyncThunk(
         try {
           const response = await axiosInstance.post(`/users/register`,body)
           return response.data;
-        } catch (err) {
-            console.log(err);
-            return thunkAPI.rejectWithValue(err.response.data || err.message);
+        } catch (error) {
+            console.log(error);
+            return thunkAPI.rejectWithValue(error.response.data || error.message);
         } 
     }
 )
@@ -22,9 +22,9 @@ export const loginUser = createAsyncThunk(
         try {
           const response = await axiosInstance.post(`/users/login`,body)
           return response.data;
-        } catch (err) {
-            console.log(err);
-            return thunkAPI.rejectWithValue(err.response.data || err.message);
+        } catch (error) {
+            console.log(error);
+            return thunkAPI.rejectWithValue(error.response.data || error.message);
         } 
     }
 )
@@ -33,13 +33,13 @@ export const loginUser = createAsyncThunk(
 export const authUser = createAsyncThunk(
     "user/authUser",
     // 받고 있는 내용이 없기 때문에 _ 표시, thunkAPI는 두 번째로 와야함
-    async(_, thunkAPI) => {
+    async (_, thunkAPI) => {
         try {
-           const response = await axiosInstance.get(`users/auth`);
-           return response.data; 
-        } catch (err) {
-            console.log(err);
-            return thunkAPI.rejectWithValue(err.response.data || err.message);
+           const response = await axiosInstance.get(`/users/auth`);
+           return response.data;
+        } catch (error) {
+            console.log(error);
+            return thunkAPI.rejectWithValue(error.response.data || error.message);
         }
     }
   )
