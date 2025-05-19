@@ -5,18 +5,17 @@ const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth');
 
 // 회원 auth 관련 처리
-router.get('/auth', auth, (req,res) => {
-    return res.json({
-        _id: req.user._id,
+router.get("/auth", auth,(req,res) => {
+    return res.status(200).json({
+        _id:req.user._id,
         email: req.user.email,
         name: req.user.name,
         role: req.user.role,
         image: req.user.image,
         cart: req.user.cart,
         history: req.user.history
-    })
-})
-
+    });
+});
 
 // 회원가입 관련 처리
 router.post('/register', async(req, res, next) => {
