@@ -1,4 +1,4 @@
-const {default: mongoose} = require('mongoose');
+const {default: mongoose, Schema} = require('mongoose');
 
 const productSchema = mongoose.Schema({
     // user가 작성하기 때문에 User 에서 ref받아 가져온다.

@@ -80,6 +80,13 @@ const userSlice = createSlice({
                 state.isAuth = false;
                 localStorage.removeItem('accessToken');
             })
+
+            .addCase(logoutUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+                toast.error(action.payload);
+            })
+            
      }
 })
 

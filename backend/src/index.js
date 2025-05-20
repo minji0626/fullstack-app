@@ -30,7 +30,9 @@ app.post('/',(req,res) => {
 })
 
 // 회원에 관한건 여기에서 처리
-app.use('/users', require('./routes/users')); 
+app.use('/users', require('./routes/users'));
+
+app.use('/products', require('./routes/products')); 
 
 app.use((error, req, res, next) => {
     res.status(error.status || 500);
