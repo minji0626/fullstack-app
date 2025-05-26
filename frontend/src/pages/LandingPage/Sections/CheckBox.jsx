@@ -1,22 +1,23 @@
 import React from 'react'
 
 const CheckBox = ({ continents, checkedContinents, onFilters }) => {
+
     const handleToggle = (continentId) => {
 
-        // 현재 누른 checkbox가 이미 누른 checkbox 인지 체크
+        // 현재 누른 checkbox가 이미 누른 check box인지 체크하기
         const currentIndex = checkedContinents.indexOf(continentId);
+        
+        const newChecked = [...checkedContinents]
 
-        const newChecked = [...checkedContinents];
-
-        if (currentIndex === -1) {
+        if(currentIndex === -1){
             newChecked.push(continentId);
         } else {
-            newChecked.splice(currentIndex, 1);
+            newChecked.splice(currentIndex, 1)
         }
         onFilters(newChecked);
-
+        // checkbox의 handelfilters 넘겨짐
     }
-    return (
+   return (
         <div className='p-2 mb-3 bg-gray-100 rounded-md'>
             {continents?.map(continent => (
                 <div key={continent._id}>

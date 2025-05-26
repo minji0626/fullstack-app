@@ -2,11 +2,13 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 4000;
+const qs = require('qs'); // ✅ 추가
 const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config(); // process.env.MONGO_URI를 작동시키기 위함
 
+app.set('query parser', str => qs.parse(str));
 app.use(cors()); 
 app.use(express.json()); // 미들웨어 등록
 
